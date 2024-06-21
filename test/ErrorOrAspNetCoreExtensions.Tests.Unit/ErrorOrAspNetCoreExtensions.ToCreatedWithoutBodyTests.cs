@@ -29,7 +29,7 @@ public class ToCreatedWithoutBodyTests
     {
         ErrorOr<TestObject> errorOr = new TestObject("value");
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()
@@ -50,14 +50,13 @@ public class ToCreatedWithoutBodyTests
     {
         ErrorOr<Success> errorOr = new Success();
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()
             .BeOfType<Created>()
             .And.Match<Created>(r =>
-                r.StatusCode == StatusCodes.Status201Created
-                && r.Location == createdAtUri.ToString()
+                r.StatusCode == StatusCodes.Status201Created && r.Location == createdAtUri
             );
     }
 
@@ -73,7 +72,7 @@ public class ToCreatedWithoutBodyTests
     {
         ErrorOr<Success> errorOr = error;
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()
@@ -96,7 +95,7 @@ public class ToCreatedWithoutBodyTests
     {
         ErrorOr<Success> errorOr = error;
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()

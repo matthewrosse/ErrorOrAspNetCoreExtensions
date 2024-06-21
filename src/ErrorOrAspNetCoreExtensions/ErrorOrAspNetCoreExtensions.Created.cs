@@ -20,49 +20,65 @@ public static partial class ErrorOrAspNetCoreExtensions
     /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
     /// </summary>
     /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">Created at uri.</param>
-    /// <returns>An instance of <see cref="IResult"/>.</returns>
-    public static IResult ToCreatedWithoutBody(this IErrorOr result, Uri createdAtUri) =>
-        result.IsError ? result.Errors!.ToProblem() : TypedResults.Created(createdAtUri);
-
-    /// <summary>
-    /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
-    /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
-    /// </summary>
-    /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">Created at URI.</param>
-    /// <returns>An instance of <see cref="IResult"/>.</returns>
-    public static IResult ToCreatedWithoutBody(this IErrorOr result, string createdAtUri) =>
-        result.IsError ? result.Errors!.ToProblem() : TypedResults.Created(createdAtUri);
-
-    /// <summary>
-    /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
-    /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
-    /// </summary>
-    /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">The URI that points to the newly created resource.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
     /// <typeparam name="TResult">Type of the success value.</typeparam>
     /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
-    public static IResult ToCreated<TResult>(this ErrorOr<TResult> result, Uri createdAtUri) =>
-        result.Match(value => TypedResults.Created(createdAtUri, value), ToProblem);
+    public static IResult ToCreatedWithoutBody<TResult>(
+        this ErrorOr<TResult> result,
+        Func<TResult, Uri> uriFactory
+    ) => result.Match(successValue => TypedResults.Created(uriFactory(successValue)), ToProblem);
 
     /// <summary>
     /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
     /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
     /// </summary>
     /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">The URI that points to the newly created resource.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
     /// <typeparam name="TResult">Type of the success value.</typeparam>
     /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
-    public static IResult ToCreated<TResult>(this ErrorOr<TResult> result, string createdAtUri) =>
-        result.Match(value => TypedResults.Created(createdAtUri, value), ToProblem);
+    public static IResult ToCreatedWithoutBody<TResult>(
+        this ErrorOr<TResult> result,
+        Func<TResult, string> uriFactory
+    ) => result.Match(successValue => TypedResults.Created(uriFactory(successValue)), ToProblem);
 
     /// <summary>
     /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
     /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
     /// </summary>
     /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">The URI that points to the newly created resource.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
+    /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
+    public static IResult ToCreated<TResult>(
+        this ErrorOr<TResult> result,
+        Func<TResult, Uri> uriFactory
+    ) =>
+        result.Match(
+            successValue => TypedResults.Created(uriFactory(successValue), successValue),
+            ToProblem
+        );
+
+    /// <summary>
+    /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
+    /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
+    /// </summary>
+    /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
+    /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
+    public static IResult ToCreated<TResult>(
+        this ErrorOr<TResult> result,
+        Func<TResult, string> uriFactory
+    ) =>
+        result.Match(
+            successValue => TypedResults.Created(uriFactory(successValue), successValue),
+            ToProblem
+        );
+
+    /// <summary>
+    /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
+    /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
+    /// </summary>
+    /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
     /// <param name="mapper">A mapper function that converts successful result
     /// <typeparam name="TResult">Type of the success value.</typeparam>
     /// <typeparam name="TContract">Type of the response contract.</typeparam>
@@ -70,16 +86,20 @@ public static partial class ErrorOrAspNetCoreExtensions
     /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
     public static IResult ToCreated<TResult, TContract>(
         this ErrorOr<TResult> result,
-        Uri createdAtUri,
+        Func<TResult, Uri> uriFactory,
         Func<TResult, TContract> mapper
-    ) => result.Match(value => TypedResults.Created(createdAtUri, mapper(value)), ToProblem);
+    ) =>
+        result.Match(
+            successValue => TypedResults.Created(uriFactory(successValue), mapper(successValue)),
+            ToProblem
+        );
 
     /// <summary>
     /// Creates either <see cref="Microsoft.AspNetCore.Http.HttpResults.Created"/>, <see cref="ProblemHttpResult"/>
     /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
     /// </summary>
     /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
-    /// <param name="createdAtUri">The URI that points to the newly created resource.</param>
+    /// <param name="uriFactory">A delegate that constructs the created at URI.</param>
     /// <param name="mapper">A mapper function that converts successful result
     /// <typeparam name="TResult">Type of the success value.</typeparam>
     /// <typeparam name="TContract">Type of the response contract.</typeparam>
@@ -87,7 +107,11 @@ public static partial class ErrorOrAspNetCoreExtensions
     /// <returns>An instance of <see cref="IResult"/>An instance of <see cref="IResult"/>.</returns>
     public static IResult ToCreated<TResult, TContract>(
         this ErrorOr<TResult> result,
-        string createdAtUri,
+        Func<TResult, string> uriFactory,
         Func<TResult, TContract> mapper
-    ) => result.Match(value => TypedResults.Created(createdAtUri, mapper(value)), ToProblem);
+    ) =>
+        result.Match(
+            successValue => TypedResults.Created(uriFactory(successValue), mapper(successValue)),
+            ToProblem
+        );
 }

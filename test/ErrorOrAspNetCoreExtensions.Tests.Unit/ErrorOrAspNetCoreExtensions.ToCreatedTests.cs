@@ -17,7 +17,7 @@ public class ToCreatedTests
     {
         ErrorOr<TestResultObject> errorOr = resultObject;
 
-        var result = errorOr.ToCreated(createdAtUri);
+        var result = errorOr.ToCreated(_ => createdAtUri);
 
         result
             .Should()
@@ -38,7 +38,7 @@ public class ToCreatedTests
     {
         ErrorOr<TestResultObject> errorOr = resultObject;
 
-        var result = errorOr.ToCreated(createdAtUri);
+        var result = errorOr.ToCreated(_ => createdAtUri);
 
         result
             .Should()
@@ -60,7 +60,7 @@ public class ToCreatedTests
     {
         ErrorOr<Success> errorOr = error;
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()
@@ -81,7 +81,7 @@ public class ToCreatedTests
     {
         ErrorOr<Success> errorOr = error;
 
-        var result = errorOr.ToCreatedWithoutBody(createdAtUri);
+        var result = errorOr.ToCreatedWithoutBody(_ => createdAtUri);
 
         result
             .Should()
@@ -98,7 +98,7 @@ public class ToCreatedTests
         var testUri = new Uri("https://example.com/api/todos/1");
         ErrorOr<Success> errorOr = Error.Validation();
 
-        var result = errorOr.ToCreated(testUri);
+        var result = errorOr.ToCreated(_ => testUri);
 
         result
             .Should()
@@ -123,7 +123,7 @@ public class ToCreatedTests
 
         ErrorOr<TestResultObject> errorOr = testResult;
 
-        var result = errorOr.ToCreated(testUri, mapperFunc);
+        var result = errorOr.ToCreated(_ => testUri, mapperFunc);
 
         result
             .Should()
