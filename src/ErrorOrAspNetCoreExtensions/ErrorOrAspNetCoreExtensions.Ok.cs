@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ErrorOrAspNetCoreExtensions;
 
-public static partial class ErrorOrExtensions
+public static partial class ErrorOrAspNetCoreExtensions
 {
     public static IResult ToOk(this IErrorOr result) =>
         result.IsError ? result.Errors!.ToProblem() : TypedResults.Ok();
