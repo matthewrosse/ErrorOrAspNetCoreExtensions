@@ -9,6 +9,16 @@ namespace ErrorOrAspNetCoreExtensions.Tests.Unit;
 
 public class ToCreatedWithoutBodyTests
 {
+    [Fact]
+    public void ToCreatedWithoutBody_ShouldReturnCreatedHttpResult_WhenStateIsSuccess_AndNoUriIsProvided()
+    {
+        ErrorOr<Success> errorOr = new Success();
+
+        var result = errorOr.ToCreatedWithoutBody();
+
+        result.Should().BeOfType<Created>().Which.Location.Should().BeNull();
+    }
+
     [Theory]
     [MemberData(
         nameof(ToCreatedWithoutBody_Uri_ShouldReturnCreatedHttpResult_WhenStateIsSuccess_Data)
