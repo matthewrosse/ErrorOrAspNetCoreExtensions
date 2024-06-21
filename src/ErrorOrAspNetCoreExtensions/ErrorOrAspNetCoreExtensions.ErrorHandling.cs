@@ -6,7 +6,7 @@ namespace ErrorOrAspNetCoreExtensions;
 
 public static partial class ErrorOrAspNetCoreExtensions
 {
-    private static IResult ToProblem(this List<Error> errors)
+    internal static IResult ToProblem(this List<Error> errors)
     {
         if (errors.Count is 0)
         {
@@ -18,7 +18,7 @@ public static partial class ErrorOrAspNetCoreExtensions
             : errors.First().ToProblem();
     }
 
-    private static ProblemHttpResult ToProblem(this Error error)
+    internal static ProblemHttpResult ToProblem(this Error error)
     {
         var statusCode = error.Type switch
         {
