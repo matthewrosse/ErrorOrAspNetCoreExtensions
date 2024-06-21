@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ErrorOrAspNetCoreExtensions;
 
-public static partial class ErrorOrExtensions
+public static partial class ErrorOrAspNetCoreExtensions
 {
     private static IResult ToProblem(this List<Error> errors)
     {
