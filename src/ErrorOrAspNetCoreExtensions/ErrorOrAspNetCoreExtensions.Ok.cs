@@ -10,6 +10,15 @@ namespace ErrorOrAspNetCoreExtensions;
 public static partial class ErrorOrAspNetCoreExtensions
 {
     /// <summary>
+    /// Creates either <see cref="Ok"/>, <see cref="ProblemHttpResult"/>
+    /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
+    /// </summary>
+    /// <param name="result">The <see cref="ErrorOr{TValue}"/> object.</param>
+    /// <returns>An instance of <see cref="IResult"/>.</returns>
+    public static IResult ToOkWithoutBody(this IErrorOr result) =>
+        result.IsError ? result.Errors!.ToProblem() : TypedResults.Ok();
+
+    /// <summary>
     /// Creates either <see cref="Ok{TResult}"/>, <see cref="ProblemHttpResult"/>
     /// or a <see cref="ValidationProblem"/> from the <see cref="ErrorOr{TValue}"/> object.
     /// </summary>
