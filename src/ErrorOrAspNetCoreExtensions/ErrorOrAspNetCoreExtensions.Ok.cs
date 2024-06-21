@@ -5,9 +5,6 @@ namespace ErrorOrAspNetCoreExtensions;
 
 public static partial class ErrorOrAspNetCoreExtensions
 {
-    public static IResult ToOk(this IErrorOr result) =>
-        result.IsError ? result.Errors!.ToProblem() : TypedResults.Ok();
-
     public static IResult ToOk<TResult>(this ErrorOr<TResult> result) =>
         result.Match(TypedResults.Ok, ToProblem);
 
