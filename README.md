@@ -46,6 +46,17 @@ When using the methods this package provides, errors are resolved like this by d
 - ErrorType.Conflict     => 409 Conflict
 - Any other type         => 500 InternalServerError
 
+All errors are returned in ProblemDetails format, like that:
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+  "title": "The requested todo item was not found.",
+  "status": 404,
+  "instance": "GET /api/test",
+  "trace-id": "0HN4IA8I0CGOG:00000001"
+}
+```
+
 However, if you have some specific use case where you want to use
 ErrorOr's feature of custom errors, then you can register the appropriate
 HTTP status code in the error's metadata, using the key ErrorOrAspNetCoreExtensions.StatusCodeKey
