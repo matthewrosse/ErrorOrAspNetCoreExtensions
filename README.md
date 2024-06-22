@@ -1,4 +1,4 @@
-# ErrorOrAspNetCoreExtensions
+# ErrorOrAspNetCoreExtensions 🔥
 A collection of extension methods designed 
 to reduce the amount of boilerplate code 🥱 needed 
 when returning appropriate HTTP responses.
