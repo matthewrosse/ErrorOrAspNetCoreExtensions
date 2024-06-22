@@ -17,7 +17,7 @@
         <EnablePackageValidation>true</EnablePackageValidation>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
-        <PackageOutputPath>../artifacts/</PackageOutputPath>
+        <PackageOutputPath>../../artifacts/</PackageOutputPath>
     </PropertyGroup>
 
     <ItemGroup>
