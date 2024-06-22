@@ -6,6 +6,18 @@ when returning appropriate HTTP responses.
 Significantly improves the developer experience of using discriminated unions
 in ASP.NET Core applications 😎
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Registering problem details services (optional, but recommended)](#registering-problem-details-services-optional-but-recommended)
+- [Usage](#usage)
+    - [ToOk extension methods](#took-extension-methods)
+    - [ToCreated extension methods](#tocreated-extension-methods)
+    - [ToNoContent extension method](#tonocontent-extension-method)
+    - [ToFileStream extension method](#tofilestream-extension-method)
+- [Issues](#issues)
+- [License](#license)
+
 ## Installation
 
 Via dotnet cli:
