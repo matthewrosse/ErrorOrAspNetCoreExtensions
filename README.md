@@ -52,7 +52,7 @@ All errors are returned in ProblemDetails format, like that:
   "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
   "title": "The requested todo item was not found.",
   "status": 404,
-  "instance": "GET /api/test",
+  "instance": "GET /api/todos/420",
   "trace-id": "0HN4IA8I0CGOG:00000001"
 }
 ```
