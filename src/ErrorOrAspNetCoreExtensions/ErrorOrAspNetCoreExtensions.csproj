@@ -13,7 +13,7 @@
         <PackageTags>erroror, library, union, extensions, aspnetcore</PackageTags>
         <RepositoryType>git</RepositoryType>
         <licenses>https://opensource.org/licenses/MIT</licenses>
-        <Version>2.0.0</Version>
+        <Version>2.0.1</Version>
         <EnablePackageValidation>true</EnablePackageValidation>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
