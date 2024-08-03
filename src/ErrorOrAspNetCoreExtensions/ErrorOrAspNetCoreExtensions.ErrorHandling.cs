@@ -30,7 +30,7 @@ public static partial class ErrorOrAspNetCoreExtensions
             _ => RetrieveStatusCodeFromNumericErrorTypeOrDefault(error)
         };
 
-        return TypedResults.Problem(statusCode: statusCode, title: error.Description);
+        return TypedResults.Problem(statusCode: statusCode, title: error.Code, detail: error.Description);
 
         int RetrieveStatusCodeFromNumericErrorTypeOrDefault(Error err)
         {
