@@ -1,31 +1,37 @@
 # ErrorOrAspNetCoreExtensions 🔥
-A collection of extension methods designed 
-to reduce the amount of boilerplate code 🥱 needed 
+
+A collection of extension methods designed
+to reduce the amount of boilerplate code 🥱 needed
 when returning appropriate HTTP responses.
 
 Significantly improves the developer experience of using discriminated unions
 in ASP.NET Core applications 😎
+
+> [!WARNING]
+> Version 2.0.0 introduces breaking changes, i.e. problemDetails.Title property is now created from error.Code and problemDetails.Detail is created from error.Description.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Registering problem details services (optional, but recommended)](#registering-problem-details-services-optional-but-recommended)
 - [Usage](#usage)
-    - [ToOk extension methods](#took-extension-methods)
-    - [ToCreated extension methods](#tocreated-extension-methods)
-    - [ToNoContent extension method](#tonocontent-extension-method)
-    - [ToFileStream extension method](#tofilestream-extension-method)
+  - [ToOk extension methods](#took-extension-methods)
+  - [ToCreated extension methods](#tocreated-extension-methods)
+  - [ToNoContent extension method](#tonocontent-extension-method)
+  - [ToFileStream extension method](#tofilestream-extension-method)
 - [Issues](#issues)
 - [License](#license)
 
 ## Installation
 
 Via dotnet cli:
+
 ```shell
 dotnet add package ErrorOrAspNetCoreExtensions
 ```
 
 Or via package manager console:
+
 ```shell
 Install-Package ErrorOrAspNetCoreExtensions
 ```
@@ -51,14 +57,15 @@ builder.Services
 
 When using the methods this package provides, errors are resolved like this by default:
 
-- ErrorType.Validation   => 400 BadRequest
+- ErrorType.Validation => 400 BadRequest
 - ErrorType.Unauthorized => 401 Unauthorized
-- ErrorType.Forbidden    => 403 Forbidden
-- ErrorType.NotFound     => 404 NotFound
-- ErrorType.Conflict     => 409 Conflict
-- Any other type         => 500 InternalServerError
+- ErrorType.Forbidden => 403 Forbidden
+- ErrorType.NotFound => 404 NotFound
+- ErrorType.Conflict => 409 Conflict
+- Any other type => 500 InternalServerError
 
 All errors are returned in ProblemDetails format, like that:
+
 ```json
 {
   "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
@@ -165,6 +172,7 @@ app.MapPost(
 ```
 
 Method that returns the service/command response directly:
+
 ```csharp
 app.MapPost(
     "/api/todos",
@@ -185,6 +193,7 @@ app.MapPost(
 ```
 
 Method that returns mapped result to the API contract model:
+
 ```csharp
 app.MapPost(
     "/api/todos",
@@ -226,10 +235,8 @@ app.MapDelete(
 
 ### ToFileStream extension method
 
-[!IMPORTANT] 
-You don't need to worry about disposing the IFileStreamResult.FileContent Stream,
-because ASP.NET Core handles that for you under the hood when sending the HTTP response.
-For the curious, that behavior is defined in the FileStreamHttpResult.ExecuteAsync() method.
+> [!IMPORTANT]
+> You don't need to worry about disposing the IFileStreamResult.FileContent Stream, because ASP.NET Core handles that for you under the hood when sending the HTTP response. For the curious, that behavior is defined in the FileStreamHttpResult.ExecuteAsync() method.
 
 ```csharp
 app.MapDelete(
@@ -254,6 +261,7 @@ app.MapDelete(
 
 If you want to use the ToFileStream() method, the result of the operation should
 implement the IFileStreamResult:
+
 ```csharp
 interface IFileStreamResult
 {
@@ -267,7 +275,6 @@ interface IFileStreamResult
 ## Issues
 
 If you encounter any bugs or have any suggestions for improvements, please [open an issue](https://github.com/matthewrosse/ErrorOrAspNetCoreExtensions/issues).
-
 
 ## License
 

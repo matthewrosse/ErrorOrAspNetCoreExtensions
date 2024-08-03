@@ -13,11 +13,12 @@
         <PackageTags>erroror, library, union, extensions, aspnetcore</PackageTags>
         <RepositoryType>git</RepositoryType>
         <licenses>https://opensource.org/licenses/MIT</licenses>
-        <Version>1.0.0</Version>
+        <Version>2.0.0</Version>
         <EnablePackageValidation>true</EnablePackageValidation>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <PackageOutputPath>../../artifacts/</PackageOutputPath>
+        <PackageReleaseNotes>This release introduces breaking changes, i.e. problemDetails.Title property is now created from error.Code and problemDetails.Detail is created from error.Description.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
