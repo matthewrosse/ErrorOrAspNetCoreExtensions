@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Title>ErrorOrAspNetCoreExtensions</Title>
@@ -9,25 +9,31 @@
         <Description>A collection of ErrorOr extension methods designed to reduce the amount of boilerplate code needed when returning appropriate HTTP responses.</Description>
         <PackageProjectUrl>https://github.com/matthewrosse/ErrorOrAspNetCoreExtensions</PackageProjectUrl>
         <RepositoryUrl>https://github.com/matthewrosse/ErrorOrAspNetCoreExtensions</RepositoryUrl>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageTags>erroror, library, union, extensions, aspnetcore</PackageTags>
         <RepositoryType>git</RepositoryType>
-        <licenses>https://opensource.org/licenses/MIT</licenses>
-        <Version>2.0.1</Version>
-        <EnablePackageValidation>true</EnablePackageValidation>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
+        <PackageTags>erroror, library, union, extensions, aspnetcore</PackageTags>
+        <Version>2.1.0</Version>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageOutputPath>../../artifacts/</PackageOutputPath>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReleaseNotes>This release introduces breaking changes, i.e. problemDetails.Title property is now created from error.Code and problemDetails.Detail is created from error.Description.</PackageReleaseNotes>
+        <PackageReleaseNotes>Library updated to .NET 10</PackageReleaseNotes>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <ApiCompatStrictMode>true</ApiCompatStrictMode>
+        <licenses>https://opensource.org/licenses/MIT</licenses>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+        <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
-      <PackageReference Include="ErrorOr" Version="2.0.1" />
+      <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="all" />
+      <PackageReference Include="ErrorOr" />
     </ItemGroup>
 
     <ItemGroup>

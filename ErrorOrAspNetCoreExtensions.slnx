@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/ErrorOrAspNetCoreExtensions/ErrorOrAspNetCoreExtensions.csproj" />
+  <Project Path="test/ErrorOrAspNetCoreExtensions.Tests.Unit/ErrorOrAspNetCoreExtensions.Tests.Unit.csproj" />
+</Solution>

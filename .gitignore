@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# JetBrains Rider / ReSharper user settings
+*.DotSettings.user
